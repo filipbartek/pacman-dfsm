@@ -11,6 +11,10 @@ increasecoins [ label = "Increment coin counter" ];
 aretherecoins [ label = "Are some coins inserted?", shape = diamond ];
 ready [ label = "Get ready" ];
 play [ label = "Play" ];
+ispowermode [ label = "Is in power mode?", shape = diamond ];
+arelivesleft [ label = "Are there some lives left?", shape = diamond ];
+eatghost [ label = "Eat the ghost" ];
+loselife [ label = "Lose a life" ];
 
 loading -> idle;
 idle -> increasecoins [ label = "insert coin" ];
@@ -19,6 +23,12 @@ idle -> aretherecoins [ label = "press start button" ];
 aretherecoins -> ready [ label = "yes" ];
 aretherecoins -> idle [ label = "no" ];
 ready -> play [ label = "wait" ];
-play -> idle [ label = "no lives left" ];
+play -> ispowermode [ label = "hit a ghost" ];
+ispowermode -> eatghost [ label = "yes" ];
+eatghost -> play;
+ispowermode -> loselife [ label = "no" ];
+loselife -> arelivesleft;
+arelivesleft -> play [ label = "yes" ];
+arelivesleft -> idle [ label = "no" ];
 
 }
