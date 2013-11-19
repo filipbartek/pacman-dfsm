@@ -4,14 +4,20 @@
 
 digraph pacman_dfsm {
 
-node [shape = circle];
-loading [ label = "loading" ];
-idle [ label = "idle" ];
-ready [ label = "ready" ];
-play [ label = "play" ];
+node [ shape = circle ];
+loading [ label = "Loading" ];
+idle [ label = "Attract mode" ];
+increasecoins [ label = "Increment coin counter" ];
+aretherecoins [ label = "Are some coins inserted?", shape = diamond ];
+ready [ label = "Get ready" ];
+play [ label = "Play" ];
 
 loading -> idle;
-idle -> ready [ label = "insert coin and press start button" ]
+idle -> increasecoins [ label = "insert coin" ];
+increasecoins -> idle;
+idle -> aretherecoins [ label = "press start button" ];
+aretherecoins -> ready [ label = "yes" ];
+aretherecoins -> idle [ label = "no" ];
 ready -> play [ label = "wait" ];
 play -> idle [ label = "no lives left" ];
 
