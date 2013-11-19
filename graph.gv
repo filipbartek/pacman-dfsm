@@ -1,6 +1,16 @@
-# Source:
+# Author: Filip Bartek
+
+# Inspiration:
 # http://www.graphviz.org/content/fsm
 # http://www.graphviz.org/Gallery/directed/fsm.gv.txt
+
+# This model abstracts from:
+# Movement details - can't move through walls, teleport etc.
+# Ghost fence - when do ghost leave the fence?
+# Ghost behavior - scatter, pursue, personalities etc.
+# High score counter
+# Last level
+# Influence of level on gameplay (faster ghosts etc.)
 
 digraph pacman_dfsm {
 
