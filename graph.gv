@@ -4,29 +4,37 @@
 
 digraph pacman_dfsm {
 
-node [ shape = circle ];
+node [ shape = ellipse ];
 loading [ label = "Loading" ];
-idle [ label = "Attract mode" ];
+idle [ label = "Attract mode", style = bold ];
 increasecoins [ label = "Increment coin counter" ];
 aretherecoins [ label = "Are some coins inserted?", shape = diamond ];
 ready [ label = "Get ready" ];
-play [ label = "Play" ];
-ispowermode [ label = "Is in power mode?", shape = diamond ];
+play [ label = "Play", style = bold ];
+ispowermode [ label = "Is power mode engaged?", shape = diamond ];
 arelivesleft [ label = "Are some lives left?", shape = diamond ];
 eatghost [ label = "Eat the ghost" ];
 loselife [ label = "Lose a life" ];
 increasescore [ label = "Increase score" ];
 isbonusreached [ label = "Reached 10000 points for the first time?", shape = diamond ];
 getlife [ label = "Get a life" ];
+pelleteaten [ label = "Eat the small pellet" ];
+arepelletsleft [ label = "Are some pellets left in the level?", shape = diamond ];
+increaselevel [ label = "Increase level and reset arena" ];
+move [ label = "Move" ];
+enterpowermode [ label = "Enter power mode" ];
+leavepowermode [ label = "Leave power mode" ];
+powerpelleteaten [ label = "Eat the power pellet" ];
+eatfruit [ label = "Eat the fruit" ];
 
 loading -> idle;
-idle -> increasecoins [ label = "Insert a coin" ];
+idle -> increasecoins [ label = "Insert coin", style = bold ];
 increasecoins -> idle;
-idle -> aretherecoins [ label = "Press start button" ];
+idle -> aretherecoins [ label = "Press start button", style = bold ];
 aretherecoins -> ready [ label = "Yes" ];
 aretherecoins -> idle [ label = "No" ];
-ready -> play [ label = "Wait" ];
-play -> ispowermode [ label = "Hit a ghost" ];
+ready -> play [ label = "Wait", style = dashed ];
+play -> ispowermode [ label = "Hit ghost" ];
 ispowermode -> eatghost [ label = "Yes" ];
 eatghost -> increasescore;
 ispowermode -> loselife [ label = "No" ];
@@ -37,5 +45,23 @@ increasescore -> isbonusreached;
 isbonusreached -> play [ label = "No" ];
 isbonusreached -> getlife [ label = "Yes" ];
 getlife -> play;
+play -> pelleteaten [ label = "Hit small pellet" ];
+pelleteaten -> increasescore;
+pelleteaten -> arepelletsleft;
+arepelletsleft -> increaselevel [ label = "No" ];
+arepelletsleft -> play [ label = "Yes" ];
+increaselevel -> ready;
+play -> move [ label = "Press joystick", style = bold ];
+move -> play;
+play -> powerpelleteaten [ label = "Hit power pellet" ];
+powerpelleteaten -> enterpowermode;
+enterpowermode -> play;
+powerpelleteaten -> increasescore;
+powerpelleteaten -> arepelletsleft;
+play -> leavepowermode [ label = "Time runs out" ];
+leavepowermode -> play;
+play -> eatfruit [ label = "Hit fruit" ];
+eatfruit -> increasescore;
+eatfruit -> play;
 
 }
